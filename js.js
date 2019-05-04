@@ -223,6 +223,7 @@ var mStartTime;
 var medicationLeft = 2;
 
 function Start() {
+    pacM=100
     choosenFruit = Math.floor(Math.random()*3);
     balls5=0;
     balls15=0;
@@ -368,7 +369,8 @@ var lastDirect=4;
 var lives=2;
 var bonusPoints=0;
 
-function Draw(x) {
+function Draw(x, pctOpen) {
+    var fltOpen = pctOpen / 100;
     context.clearRect(0, 0, document.getElementById('canvas').width, document.getElementById('canvas').height); //clean board
     context.strokeRect(0,0,1200,600);
     var score=balls15*15+balls25*25+balls5*5-(2-lives)*10+bonusPoints;
@@ -383,7 +385,7 @@ function Draw(x) {
             if (board[i][j] === 2) {
                 if(x==1){
                     context.beginPath();
-                    context.arc(center.x, center.y, 30, 1.65 * Math.PI, 3.35 * Math.PI); // half circle
+                    context.arc(center.x, center.y, 30, (1.5 + fltOpen * 0.15) * Math.PI, (3.5 - fltOpen * 0.15) * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
                     context.fillStyle = pac_color; //color
                     context.fill();
@@ -394,7 +396,7 @@ function Draw(x) {
                 }
                 else if(x==2){
                     context.beginPath();
-                    context.arc(center.x, center.y, 30, 0.65 * Math.PI, 2.35 * Math.PI); // half circle
+                    context.arc(center.x, center.y, 30, (0.5 + fltOpen * 0.15) * Math.PI, (2.5 - fltOpen * 0.15) * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
                     context.fillStyle = pac_color; //color
                     context.fill();
@@ -405,7 +407,7 @@ function Draw(x) {
                 }
                 else if(x==3){
                     context.beginPath();
-                    context.arc(center.x, center.y, 30, 1.15 * Math.PI, 2.85 * Math.PI); // half circle
+                    context.arc(center.x, center.y, 30, (1 + fltOpen * 0.15) * Math.PI, (3 - fltOpen * 0.15) * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
                     context.fillStyle = pac_color; //color
                     context.fill();
@@ -416,7 +418,7 @@ function Draw(x) {
                 }
                 else{
                     context.beginPath();
-                    context.arc(center.x, center.y, 30, 0.15 * Math.PI, 1.85 * Math.PI); // half circle
+                    context.arc(center.x, center.y, 30, fltOpen * 0.15 * Math.PI, (2 - fltOpen * 0.15) * Math.PI); // half circle
                     context.lineTo(center.x, center.y);
                     context.fillStyle = pac_color; //color
                     context.fill();
@@ -580,6 +582,7 @@ function moveMons(){
 }
 
 var counter =0;
+var pacM=110;
 
 function UpdatePosition() {
     counter++;
@@ -670,13 +673,21 @@ function UpdatePosition() {
         window.clearInterval(interval);
         document.getElementById('music').pause();
         document.getElementById('music').currentTime = 0;
-        Draw(lastDirect);
+        Draw(lastDirect,pacM);
+        if(pacM < 0)
+            pacM=110;
+        else
+            pacM-=15;
         window.alert("We have a Winner!!!");
     } 
     else if((maxTime-time_elapsed)<=0){
         window.clearInterval(interval);
         time_elapsed=maxTime;
-        Draw(lastDirect);
+        Draw(lastDirect, pacM);
+        if(pacM < 0)
+            pacM=110;
+        else
+            pacM-=15;
         if(parseInt(lblScore.value)<150){
             document.getElementById('music').pause();
             document.getElementById('music').currentTime = 0;
@@ -711,12 +722,20 @@ function UpdatePosition() {
             board[shape.i][shape.j]=0;
             document.getElementById('music').pause();
             document.getElementById('music').currentTime = 0;
-            Draw(lastDirect);
+            Draw(lastDirect, pacM);
+            if(pacM < 0)
+                pacM=110;
+            else
+                pacM-=15;
             window.alert("You Lost!");
         }
     }
     else {
-        Draw(lastDirect);
+        Draw(lastDirect, pacM);
+        if(pacM < 0)
+            pacM=110;
+        else
+            pacM-=15;
     }
 }
 

@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <script type="text/javascript" src=js.js></script>
+    <link rel="stylesheet" type="text/css" href="style.css"/>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/additional-methods.js"></script>
+
+    <script>
+        $.validator.setDefaults({
+		submitHandler: function() {
+            saveChanges();
+		}
+	    });
+
+        $.validator.addMethod("passCheck",
+            function(value){
+                return /\d/.test(value) && /^[A-Za-z0-9\d=!\-@._*]+$/.test(value) && (/[a-z]/.test(value) || /[A-Z]/.test(value))
+            }
+        );
+
+        $().ready(function() {
+    
+            $("#signupForm").validate({
+                rules: {
+                    firstName: {
+                        required: true,
+                        lettersonly: true
+                    },
+                    lastName: {
+                        required: true,
+                        lettersonly: true
+                    },
+                    userName: "required",
+                    password: {
+                        required: true,
+                        minlength: 8,
+                        passCheck: true
+                    },
+                    emailAdd: {
+                        required: true,
+                        email: true
+                    },
+                    birthDate: "required"
+                },
+                messages: {
+                    firstName: {
+                        required: "Please enter your firstname",
+                        lettersonly: "Please enter letters-only name"
+                    },
+                    lastName: {
+                        required: "Please enter your lastname",
+                        lettersonly: "Please enter letters-only name"
+                    },
+                    userName: {
+                        required: "Please enter a username"
+                    },
+                    password: {
+                        required: "Please provide a password",
+                        minlength: "Your password must be at least 8 characters long",
+                        passCheck: "Your password must contain both letters and digits"
+                    },
+                    emailAdd: "Please enter a valid email address",
+                    birthDate: "Please enter your birth date"
+                }
+            })
+        });
+
+    $().ready(function() {
+
+        $("#settingsForm").validate({
+            rules: {
+                ballsnum: {
+                    required: true,
+                    min: 50,
+                    max: 90
+                },
+                maxTime: {
+                    required: true,
+                    min: 60
+                },
+                monsNum: {
+                    required: true,
+                    min: 1,
+                    max: 3
+                },
+                upSet: "required",
+                downSet: "required",
+                leftSet: "required",
+                rightSet: "required"
+            },
+            messages: {
+                ballsnum: {
+                    required: "Please enter number of balls",
+                    min: "Please enter a number greater than 50",
+                    max: "Please enter a number smaller than 90"
+                },
+                maxTime: {
+                    required: "Please enter max time for game",
+                    min: "Please enter a number greater than 60"
+                },
+                monsNum: {
+                    required: "Please enter number of monsters",
+                    min: "Please enter a number greater than 1",
+                    max: "Please enter a number smaller than 3"
+                },
+                upSet: "Please enter a control key",
+                downSet: "Please enter a control key",
+                leftSet: "Please enter a control key",
+                rightSet: "Please enter a control key"
+
+            }
+        })
+    });
+</script>
+</head>
+
+<body onload="PageLoaded()">
+    <header>
+        <img id="logo" src="logo4.png" height="80px" width="300px">
+    </header>
+    <nav>
+        <ul>
+            <li class="menul" onclick="ShowSection('welcome')">  Welcome</li>
+            <li class="menul" onclick="ShowSection('signUp')">Register </li>
+            <li class="menul" onclick="ShowSection('login')"> Login </li>
+            <li class="menul" onclick="openModal()">About</li>
+        </ul>
+    </nav>
+    <section id="welcome">
+        <p><input type="button" class="but" onclick="ShowSection('signUp')" value="Sign Up"/></p>
+        <p><input type="button" class="but" onclick="ShowSection('login')" value="Login"/> </p>
+    </section>
+    <section id="signUp">
+        <form id="signupForm" method="get" autocomplete="off"> 
+            <fieldset>
+                <p>
+                <label for="userName">Username</label>
+                <input id="userName" name="userName" type="text">
+                </p>
+                <p>
+                <label for="firstName">Firstname</label>
+                <input id="firstName" name="firstName" type="text">
+                </p>
+                <p>
+                <label for="lastName">Lastname</label>
+                <input id="lastName" name="lastName" type="text">
+                </p>
+                <p>
+                <label for="password">Password</label>
+                <input id="password" name="password" type="password">
+                </p>
+                <p>
+                <label for="emailAdd">Email Address</label>
+                <input id="emailAdd" name="emailAdd" type="email">
+                </p>
+                <p>
+                <label for="birthDate">Birth Date</label>
+                <input type="date" class="date" id="birthDate" name="birthDate">
+                </p>
+                <p>
+                <input type="submit" class="but" value="Submit">
+                </p>
+            </fieldset>
+        </form>
+    </section>
+    <section id="login">
+        <form id="loginForm" method="get" autocomplete="off">
+            <fieldset>
+                <p>
+                <label for="userName">Username</label>
+                <input id="userNameLog" name="userName" type="text">
+                </p>
+                <p>
+                <label for="password">Password</label>
+                <input id="passwordLog" name="password" type="password">
+                </p>
+                <p>
+                <input type="button" class="but" onclick="checkLogin()" value="Login">
+                </p>
+            </fieldset>
+        </form>
+    </section>
+    <section id="settings">
+        <form id="settingsForm" method="get" autocomplete="off">
+            <fieldset>
+                <p>
+                    <label for="Up">Up</label>
+                    <input id="upSet" name="upSet" type="text" onclick="clear(upSet)" onkeydown="setUpKey(event)">
+                </p>
+                <p>
+                    <label for="Down">Down</label>
+                    <input id="downSet" name="downSet" type="text" onclick="clear(downSet)" onkeydown="setDownKey(event)">
+                </p>
+                <p>
+                    <label for="Left">Left</label>
+                    <input id="leftSet" name="leftSet" type="text" onclick="clear(leftSet)" onkeydown="setLeftKey(event)">
+                </p>
+                <p>
+                    <label for="Right">Right</label>
+                    <input id="rightSet" name="rightSet" type="text" onclick="clear(rightSet)" onkeydown="setRightKey(event)">
+                </p>
+                <p>
+                    <label for="ballsnum">Number of balls</label>
+                    <input id="ballsnum" name="ballsnum" type="text">
+                </p>
+                <p>
+                    <label for="5color">Color of 5 points balls</label>
+                    <input id="5color" name="5color" type="color">
+                </p>
+                <p>
+                    <label for="15color">Color of 15 points balls</label>
+                    <input id="15color" name="15color" type="color">
+                </p>
+                <p>
+                    <label for="25color">Color of 25 points balls</label>
+                    <input id="25color" name="25color" type="color">
+                </p>
+                <p>
+                    <label for="maxTime">Max game time(seconds)</label>
+                    <input id="maxTime" name="maxTime" type="text">
+                </p>
+                <p>
+                    <label for="monsNum">Number of monsters</label>
+                    <input id="monsNum" name="monsNum" type="text">
+                </p>
+                <p>
+                    <input type="button" class="but" value="Random!" onclick="randomSet()">
+                </p>
+                <p>
+                    <input type="submit" class="but" value="Save">
+                </p>
+            </fieldset>
+        </form>
+    </section>
+    <div id="about">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <p>Or Shtar - 205947542</p>
+            <p>Dafna Cordoval - 204906036</p>
+            <p>We used a JQuery plugin called validation, it validate user inputs from an html form.</p>
+            <p>We did not used a template</p>
+            <p>Some difficulties we came across in this assignment:</p>
+            <p> 1. Figuring out the use of the plugin</p>
+            <p> 2. Writing the code for the movement of the monsters</p>
+        </div>
+    </div>
+    <section id="game">
+        <audio id= "music" loop="true" autoplay="false">
+                <source src="pacmanTrck.mp3"> 
+        </audio>
+        <ul>
+            <li> Pacman Name: <label id="pacName"></label> </li>
+            <li>Score:  <input id="lblScore" type="text" style="width: 40px"/></li>
+            <li>Time:  <input id="lblTime" type="text" style="width: 40px"/></li>
+            <li>Lives:  <input id="lblLives" type="text" style="width: 40px"/></li>
+        </ul>
+        <canvas id="canvas" height="600" width="1200"></canvas>
+        <p>
+        <input type="button" class="but" onclick="newGame()" value="New Game">
+        </p>
+    </section>
+    <footer>
+        <p>This website was written in html5, javascript and css3.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="mailto:shtaro@post.bgu.ac.il" target="_top">Email us</a></p>
+    </footer>
+</body>
+
+</html>

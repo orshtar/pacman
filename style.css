@@ -1,0 +1,176 @@
+#signupForm {
+	width: 700px;
+	font-family:  'Verdana';
+	margin:auto;
+}
+
+#loginForm {
+	width: 400px;
+	font-family:  'Verdana';
+	margin:auto;
+	text-align: center;
+}
+
+#settingsForm {
+	width: 700px;
+	font-family:  'Verdana';
+
+	margin:auto;
+}
+#signupForm label.error {
+    margin-left: 10px;
+	display: inline;
+	color: firebrick;
+}
+
+#settingsForm label.error {
+    margin-left: 10px;
+	display: inline;
+	color: firebrick;
+}
+
+header{
+	position:absolute;
+	top:0px;
+	left:0px;
+	height:80px;
+	width: 100%;
+	background-color: #5a5a5a;
+
+}
+
+nav{
+    position:absolute;
+	top:80px;
+	left:0px;
+	height: 50px;
+	width: 100%;
+	background-color: #5a5a5a;
+
+}
+
+footer{
+    position:absolute;
+	top:930px;
+	left:0px;
+	height:50px;
+	width: 100%;
+	background-color: #5a5a5a;
+	font-family: 'Verdana';
+	color: #fefefe;
+	font-size: 16px;
+	background-color: #5a5a5a;
+}
+
+section{
+	position:absolute;
+	top:130px;
+	left:0px;
+	height:700px;
+	width: 100%;
+	background-color: darkgray;
+	padding: 50px 0;
+}
+/*
+#game{
+	padding: 0 0;
+
+}
+*/
+ul{
+	list-style-type: none;
+	margin: auto;
+	padding: 0;
+	overflow: hidden;
+}
+
+li.menul{
+	float: left;
+	display: block;
+	color: rgb(238, 238, 238);
+	text-align: center;
+	padding: 16px;
+	text-decoration: none;
+	background-color: #5a5a5a;
+	font-family:  'Verdana';
+}
+  
+li.menul:hover {
+	background-color: #979696;
+}
+
+li{
+	float: left;
+	text-align: center;
+	padding: 8px;
+	text-decoration: none;
+	color: #fefefe;
+	font-family:  'Verdana';
+}
+
+#about {
+	display: none; /* Hidden by default */
+	position: fixed; /* Stay in place */
+	z-index: 1; /* Sit on top */
+	padding-top: 100px; /* Location of the box */
+	left: 0;
+	top: 0;
+	width: 100%; /* Full width */
+	height: 100%; /* Full height */
+	overflow: auto; /* Enable scroll if needed */
+	background-color: rgb(0,0,0); /* Fallback color */
+	background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+	
+  }
+  
+
+.modal-content {
+	background-color: #fefefe;
+	margin: auto;
+	padding: 20px;
+	border: 1px solid #888;
+	width: 80%;
+	font-family:  'Verdana';
+}
+  
+
+.close {
+	color: #aaaaaa;
+	float: right;
+	font-size: 28px;
+	font-weight: bold;
+}
+  
+.close:hover,
+.close:focus {
+	color: #000;
+	text-decoration: none;
+	cursor: pointer;
+}
+ #logo{
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+ }
+
+input{
+	font-family:  'Verdana';
+}
+
+input.but{
+	border-style: none; 
+	border-radius: 5px;
+	height: 35px;
+	width: auto;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 14px;
+	padding: 8px ;
+	background-color: #5a5a5a;
+	color: #fefefe;
+}
+
+label{
+	color: #fefefe;
+}
